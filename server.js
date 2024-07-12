@@ -8,7 +8,7 @@ const DEFAULT_SOL_AMOUNT = 1;
 const connection = new Connection(clusterApiUrl("devnet"));
 
 const PORT = 8080;
-const BASE_URL = `https://transfer-sol-git-main-nahirniys-projects.vercel.app`;
+const BASE_URL = `https://transfer-sol-rho.vercel.app`;
 
 const app = express();
 app.use(express.static("public"));
