@@ -8,11 +8,10 @@ const DEFAULT_SOL_AMOUNT = 1;
 const connection = new Connection(clusterApiUrl("devnet"));
 
 const PORT = 8080;
-const BASE_URL = `https://transfer-sol-git-main-nahirniys-projects.vercel.app/`;
+const BASE_URL = `http://localhost:${PORT}`;
 
 const app = express();
 app.use(express.static("public"));
-app.use(express.json());
 app.use(
     cors({
         origin: "*",
@@ -20,7 +19,7 @@ app.use(
         allowedHeaders: ["Content-Type", "Authorization", "Content-Encoding", "Accept-Encoding"],
     })
 );
-
+app.get("/", (req, res) => res.send("hi"));
 app.get("/actions.json", getActionsJson);
 app.get("/api/actions/transfer-sol", getTransferSol);
 app.post("/api/actions/transfer-sol", postTransferSol);
@@ -39,11 +38,13 @@ function getActionsJson(req, res) {
 async function getTransferSol(req, res) {
     try {
         const { toPubkey } = validatedQueryParams(req.query);
-        const baseHref = `${BASE_URL}/api/actions/transfer-sol?to=${toPubkey.toBase58()}`;
+        const protocol = req.protocol;
+        const host = req.get("host");
+        const baseHref = `${protocol}://${host}/api/actions/transfer-sol?to=${toPubkey.toBase58()}`;
 
         const payload = {
             title: "Transfer SOL to Dexola! 😘",
-            icon: `${BASE_URL}/dexola_logo.jpg`,
+            icon: `https://solana-actions.vercel.app/solana_devs.jpg`,
             description: "Dexola need more SOL for build better project",
             links: {
                 actions: [
