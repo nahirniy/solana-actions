@@ -45,7 +45,7 @@ async function getTransferSol(req, res) {
 
         const payload = {
             title: "Transfer SOL to Dexola! 😘",
-            icon: `https://solana-actions.vercel.app/solana_devs.jpg`,
+            icon: `https://i.postimg.cc/d3stYT67/dexola-logo.jpg`,
             description: "Dexola need more SOL for build better project",
             links: {
                 actions: [
