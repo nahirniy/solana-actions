@@ -13,6 +13,7 @@ const BASE_URL = `https://transfer-sol-rho.vercel.app`;
 
 const app = express();
 app.use(express.static("public"));
+app.use(express.json());
 app.use(
     cors({
         origin: "*",
@@ -69,7 +70,6 @@ async function getTransferSol(req, res) {
 async function postTransferSol(req, res) {
     try {
         const { amount, toPubkey } = validatedQueryParams(req.query);
-        console.log(req.body);
         const { account } = req.body;
 
         if (!account) {
