@@ -7,8 +7,9 @@ const DEFAULT_SOL_ADDRESS = new PublicKey("5jZ8KE9B2i1svQ7jRK6geRTMEWLKT22cAyd7T
 const DEFAULT_SOL_AMOUNT = 1;
 const connection = new Connection(clusterApiUrl("devnet"));
 
-const PORT = 8080;
-const BASE_URL = `http://localhost:${PORT}`;
+// const PORT = 8080;
+// const BASE_URL = `http://localhost:${PORT}`;
+const BASE_URL = `https://transfer-sol-rho.vercel.app`;
 
 const app = express();
 app.use(express.static("public"));
@@ -38,9 +39,8 @@ function getActionsJson(req, res) {
 async function getTransferSol(req, res) {
     try {
         const { toPubkey } = validatedQueryParams(req.query);
-        const protocol = req.protocol;
-        const host = req.get("host");
-        const baseHref = `${protocol}://${host}/api/actions/transfer-sol?to=${toPubkey.toBase58()}`;
+
+        const baseHref = `${BASE_URL}/api/actions/transfer-sol?to=${toPubkey.toBase58()}`;
 
         const payload = {
             title: "Transfer SOL to Dexola! 😘",
@@ -69,6 +69,7 @@ async function getTransferSol(req, res) {
 async function postTransferSol(req, res) {
     try {
         const { amount, toPubkey } = validatedQueryParams(req.query);
+        console.log(req.body);
         const { account } = req.body;
 
         if (!account) {
